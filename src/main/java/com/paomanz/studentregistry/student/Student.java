@@ -7,13 +7,13 @@ public class Student {
    private final String firstName;
    private final String lastName;
    private final String email;
-   private final String gender;
+   private final Gender gender;
 
    public Student(UUID studentId,
                   String firstName,
                   String lastName,
                   String email,
-                  String gender) {
+                  Gender gender) {
       this.studentId = studentId;
       this.firstName = firstName;
       this.lastName = lastName;
@@ -22,6 +22,7 @@ public class Student {
    }
 
    // Getters only, cos all Props are 'final'
+
    public UUID getStudentId() {
       return studentId;
    }
@@ -38,7 +39,7 @@ public class Student {
       return email;
    }
 
-   public String getGender() {
+   public Gender getGender() {
       return gender;
    }
 
