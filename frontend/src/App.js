@@ -1,14 +1,16 @@
 import React from 'react';
 import './App.css';
+import ComponentMain from "./ComponentMain";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-       Student Registry
-      </header>
-    </div>
-  );
+   return (
+       <div className="App">
+          <header>
+             <h1>Student Registry</h1>
+          </header>
+          <ComponentMain/>
+       </div>
+   );
 }
 
 export default App;
