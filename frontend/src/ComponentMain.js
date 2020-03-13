@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { getAllStudents } from './client';
-import { Table } from "antd";
+import { Avatar, Table } from "antd";
 import Container from "./Container";
 
 
@@ -37,6 +37,16 @@ class ComponentMain extends Component {
       // If True, return a table...
       if ( students && students.length ) {
          const columns = [
+            {
+               title:'',
+               key:'avatar',
+               // to use Custom-Component(Avatar from antd)inside a column, Use 'render:'
+               render: (text,student) => (
+                   <Avatar size="large">
+                      {`${student.firstName.charAt(0).toUpperCase()}${student.lastName.charAt(0).toUpperCase()}`}
+                   </Avatar>
+               )
+            },
             {
                title: 'Student Id',
                dataIndex: 'studentId',
@@ -78,31 +88,6 @@ class ComponentMain extends Component {
       // ... else, return <h1>
       return <h1>No students found</h1>;
 
-      /* return (
-          <div>
-             <table>
-                <thead>
-                   <tr>
-                      <th>Student Name</th>
-                      <th>Email</th>
-                      <th>Gender</th>
-                   </tr>
-                </thead>
-                <tbody>
-                   {
-                      students.map
-                      (( student, id ) =>
-                          <tr key={ id }>
-                             <td>{ student.firstName } { student.lastName }</td>
-                             <td>{ student.email }</td>
-                             <td>{ student.gender }</td>
-                          </tr>
-                      )
-                   }
-                </tbody>
-             </table>
-          </div>
-      );*/
    }
 
 }
