@@ -1,15 +1,19 @@
 import React, { Component } from "react";
 import { getAllStudents } from './client';
-import { Avatar, Table } from "antd";
+import { Avatar, Table, Spin, } from "antd";
+import { LoadingOutlined } from '@ant-design/icons';
 import Container from "./Container";
 
+
+const getIndicatorIcon = () => <LoadingOutlined style={ { fontSize: 24 } } spin/>;
 
 class ComponentMain extends Component {
    constructor( props ) {
       super(props);
 
       this.state = {
-         students: []
+         students: [],
+         isFetching: false
       };
 
       this.fetchStudents = this.fetchStudents.bind(this);
@@ -22,28 +26,38 @@ class ComponentMain extends Component {
 
 
    fetchStudents() {
+      this.setState({ isFetching: true });
       getAllStudents().then(res => res.json()
           .then(students => {
-             console.log(students);
-             this.setState({ students });
+             // console.log(students);
+             this.setState({ students, isFetching: false });
           })
       );
    }
 
 
    render() {
-      const { students } = this.state;
+
+      const { students, isFetching } = this.state;
+
+      if ( isFetching ) {
+         return (
+             <Container>
+                <Spin indicator={ getIndicatorIcon() }/>
+             </Container>
+         );
+      }
 
       // If True, return a table...
       if ( students && students.length ) {
          const columns = [
             {
-               title:'',
-               key:'avatar',
+               title: '',
+               key: 'avatar',
                // to use Custom-Component(Avatar from antd)inside a column, Use 'render:'
-               render: (text,student) => (
+               render: ( text, student ) => (
                    <Avatar size="large">
-                      {`${student.firstName.charAt(0).toUpperCase()}${student.lastName.charAt(0).toUpperCase()}`}
+                      { `${ student.firstName.charAt(0).toUpperCase() }${ student.lastName.charAt(0).toUpperCase() }` }
                    </Avatar>
                )
             },
@@ -79,7 +93,7 @@ class ComponentMain extends Component {
                 <Table dataSource={ students }
                        columns={ columns }
                        rowKey='studentId'
-                       pagination={false}
+                       pagination={ false }
                 />
              </Container>
          );
@@ -87,8 +101,7 @@ class ComponentMain extends Component {
 
       // ... else, return <h1>
       return <h1>No students found</h1>;
-
-   }
+   } // End render()
 
 }
 

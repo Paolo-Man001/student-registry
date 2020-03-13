@@ -10,7 +10,8 @@
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-scripts": "3.4.0",
-    "unfetch": "^4.1.0"
+    "unfetch": "^4.1.0",
+    "@ant-design/icons": "latest"
   },
   "proxy": "http://localhost:8081",
   "scripts": {
