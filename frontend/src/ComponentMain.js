@@ -17,6 +17,7 @@ class ComponentMain extends Component {
       this.fetchStudents();
    }
 
+
    fetchStudents() {
       getAllStudents().then(res => res.json()
           .then(students => {
@@ -28,8 +29,10 @@ class ComponentMain extends Component {
 
 
    render() {
-      return (
-          <>
+      const { students } = this.state;
+
+      if ( students && students.length )  // If True, return a table...
+         return (
              <div>
                 <table>
                    <thead>
@@ -41,9 +44,9 @@ class ComponentMain extends Component {
                    </thead>
                    <tbody>
                       {
-                         this.state.students.map
-                         (student =>
-                             <tr key={ student.studentId }>
+                         students.map
+                         (( student, id ) =>
+                             <tr key={ id }>
                                 <td>{ student.firstName } { student.lastName }</td>
                                 <td>{ student.email }</td>
                                 <td>{ student.gender }</td>
@@ -53,10 +56,11 @@ class ComponentMain extends Component {
                    </tbody>
                 </table>
              </div>
-          </>
-      );
-   }
+         );
+      // ... else, return <h1>
+      return <h1>No students found</h1>;
 
+   }
 
 }
 
