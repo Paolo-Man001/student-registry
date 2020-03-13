@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { getAllStudents } from './client';
 import { Avatar, Table, Spin, } from "antd";
 import { LoadingOutlined } from '@ant-design/icons';
-import Container from "./Container";
+import Container from "react-bootstrap/Container";
 
 
 const getIndicatorIcon = () => <LoadingOutlined style={ { fontSize: 24 } } spin/>;
@@ -42,7 +42,7 @@ class ComponentMain extends Component {
 
       if ( isFetching ) {
          return (
-             <Container>
+             <Container fluid>
                 <Spin indicator={ getIndicatorIcon() }/>
              </Container>
          );
