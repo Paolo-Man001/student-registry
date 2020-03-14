@@ -2,3 +2,11 @@ server:
   servlet:
     context-path: /api
   port: 8081
+
+app:
+  datasource:
+    jdbc-url: jdbc:postgresql://localhost:5432/amigoscodedemo
+    username: postgres
+    password: password
+    pool-size: 30     # Allowed number of given connections at any given time.
+
