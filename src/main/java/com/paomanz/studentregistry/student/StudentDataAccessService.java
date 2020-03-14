@@ -1,27 +1,31 @@
 package com.paomanz.studentregistry.student;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
-import java.util.UUID;
 
 
 @Repository
 public class StudentDataAccessService {
 
+   // Class-JdbcTemplate allows us to interacted with our Database
+   private final JdbcTemplate jdbcTemplate;
+
+   @Autowired
+   public StudentDataAccessService(JdbcTemplate jdbcTemplate) {
+      this.jdbcTemplate = jdbcTemplate;
+   }
+
    public List<Student> selectAllStudents() {
-      return List.of(
-              new Student(
-                      UUID.randomUUID(),
-                      "James",
-                      "Bond",
-                      "jamesbond@emailc.com",
-                      Student.Gender.MALE),
-              new Student(
-                      UUID.randomUUID(),
-                      "Maria",
-                      "Jane",
-                      "mariajane@emailc.com",
-                      Student.Gender.FEMALE)
-      );
+      String sql = "";
+      List<Student> students = jdbcTemplate.query(
+              sql,                  // sql statement : e.g. 'SELECT uuid, name FROM students;'
+              (resultSet, i) -> {   // returns raw Db as 'Set'. Each row from Db Set is mapped to 'i' as Java Obj
+                 return null;
+              });
+
+      return null;
    }
 }
