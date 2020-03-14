@@ -3,6 +3,7 @@ import { getAllStudents } from './client';
 import { Avatar, Table, Spin, } from "antd";
 import { LoadingOutlined } from '@ant-design/icons';
 import { Container } from "react-bootstrap";
+import ComponentFooter from "./ComponentFooter";
 
 
 const getIndicatorIcon = () => <LoadingOutlined style={ { fontSize: 24 } } spin/>;
@@ -89,13 +90,14 @@ class ComponentMain extends Component {
          ];
 
          return (
-             <Container fluid>
+             <Container>
                 <h1 className="text-center">Student Registry</h1>
                 <Table dataSource={ students }
                        columns={ columns }
                        rowKey='studentId'
                        pagination={ false }
                 />
+                <ComponentFooter numberOfStudents={students.length}/>
              </Container>
          );
       }
