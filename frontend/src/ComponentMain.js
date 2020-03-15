@@ -96,13 +96,15 @@ class ComponentMain extends Component {
          return (
              <Container>
                 <h1 className="text-center">Student Registry</h1>
-                <Table dataSource={ students }
-                       columns={ columns }
-                       rowKey='studentId'
-                       pagination={ false }/>
+                <Table
+                    style={ { marginBottom: '100px' } }
+                    dataSource={ students }
+                    columns={ columns }
+                    rowKey='studentId'
+                    pagination={ false }/>
 
                 <Modal
-                    title={<h4>Add New Student</h4>}
+                    title={ <h4>Add New Student</h4> }
                     visible={ isAddStudentModalVisible }
                     onOk={ this.closeAddStudentModal }
                     onCancel={ this.closeAddStudentModal }

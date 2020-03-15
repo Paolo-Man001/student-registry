@@ -55,7 +55,12 @@ public class StudentDataAccessService {
    int insertStudent(UUID studentId, Student student) {
 
       String sql = "" +
-              "INSERT INTO students (student_id, first_name, last_name, email, gender ) " +
+              "INSERT INTO students (" +
+              " student_id," +
+              " first_name," +
+              " last_name," +
+              " email," +
+              " gender) " +
               "VALUES (?, ?, ?, ?, ?)";
 
       // Jdbc uses Update() to insert a record.
