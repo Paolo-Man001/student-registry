@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Button, Input } from "antd";
 import Text from "antd/es/typography/Text";
 import { Formik } from "formik";
+import { addNewStudent } from "../client";
 
 
 class AddStudentForm extends Component {
@@ -42,11 +43,11 @@ class AddStudentForm extends Component {
               } }
 
               // Handles the onSubmit
-              onSubmit={ ( values, { setSubmitting } ) => {
-                 setTimeout(() => {
-                    alert(JSON.stringify(values, null, 2));
+              onSubmit={ ( student, { setSubmitting } ) => {
+                 addNewStudent(student).then(() => {
+                    alert(JSON.stringify(student));
                     setSubmitting(false);
-                 }, 400);
+                 });
               } }
           >
              { ( {
@@ -99,7 +100,7 @@ class AddStudentForm extends Component {
                     { errors.gender && touched.gender &&
                     <Text type="danger">{ errors.gender }</Text> }
                     <Button className="mt-2 d-block"
-                           // Add this onClick() returning submitForm() IF not using Formik's default button element
+                        // Add this onClick() returning submitForm() IF not using Formik's default button element
                             onClick={ () => submitForm() }
                             type="submit"
                             disabled={ isSubmitting }>

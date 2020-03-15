@@ -20,7 +20,7 @@ public class StudentDataAccessService {
       this.jdbcTemplate = jdbcTemplate;
    }
 
-   // Get ALL students
+   // GET: ALL students:
    List<Student> selectAllStudents() {
       String sql = "" +
               "SELECT" +
@@ -51,5 +51,7 @@ public class StudentDataAccessService {
       };
    }
 
+
+   // POST: Add 1 student:
 
 }

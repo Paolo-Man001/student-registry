@@ -17,7 +17,12 @@ public class StudentService {
       this.studentDataAccessService = studentDataAccessService;
    }
 
+   // GET:
    public List<Student> getAllStudents() {
       return studentDataAccessService.selectAllStudents();
    }
+
+   // POST: Add 1 student
+
+
 }
