@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { getAllStudents } from './client';
-import { Avatar, Table, Spin, } from "antd";
+import { Avatar, Table, Spin, Modal } from "antd";
 import { LoadingOutlined } from '@ant-design/icons';
 import { Container } from "react-bootstrap";
 import ComponentFooter from "./ComponentFooter";
+import AddStudentForm from "./forms/AddStudentForm";
 
 
 const getIndicatorIcon = () => <LoadingOutlined style={ { fontSize: 24 } } spin/>;
@@ -11,19 +12,22 @@ const getIndicatorIcon = () => <LoadingOutlined style={ { fontSize: 24 } } spin/
 class ComponentMain extends Component {
    constructor( props ) {
       super(props);
-
       this.state = {
          students: [],
-         isFetching: false
+         isFetching: false,
+         isAddStudentModalVisible: false
       };
 
       this.fetchStudents = this.fetchStudents.bind(this);
    }
 
-
    componentDidMount() {
       this.fetchStudents();
    }
+
+
+   openAddStudentModal = () => this.setState({ isAddStudentModalVisible: true });
+   closeAddStudentModal = () => this.setState({ isAddStudentModalVisible: false });
 
 
    fetchStudents() {
@@ -39,7 +43,7 @@ class ComponentMain extends Component {
 
    render() {
 
-      const { students, isFetching } = this.state;
+      const { students, isFetching, isAddStudentModalVisible } = this.state;
 
       if ( isFetching ) {
          return (
@@ -95,12 +99,22 @@ class ComponentMain extends Component {
                 <Table dataSource={ students }
                        columns={ columns }
                        rowKey='studentId'
-                       pagination={ false }
-                />
-                <ComponentFooter numberOfStudents={students.length}/>
+                       pagination={ false }/>
+
+                <Modal
+                    title={<h4>Add New Student</h4>}
+                    visible={ isAddStudentModalVisible }
+                    onOk={ this.closeAddStudentModal }
+                    onCancel={ this.closeAddStudentModal }
+                    width={ 1000 }>
+                   <AddStudentForm/>
+                </Modal>
+
+                <ComponentFooter handleAddStudentClick={ this.openAddStudentModal } numberOfStudents={ students.length }/>
              </Container>
          );
       }
+
 
       // ... else, return <h1>
       return <h1>No students found</h1>;

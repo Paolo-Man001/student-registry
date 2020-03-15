@@ -20,6 +20,7 @@ public class StudentDataAccessService {
       this.jdbcTemplate = jdbcTemplate;
    }
 
+   // Get ALL students
    List<Student> selectAllStudents() {
       String sql = "" +
               "SELECT" +
@@ -49,4 +50,6 @@ public class StudentDataAccessService {
          return new Student(studentId, firstName, lastName, email, gender);
       };
    }
+
+
 }
