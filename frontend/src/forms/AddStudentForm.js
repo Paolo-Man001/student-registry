@@ -57,7 +57,7 @@ class AddStudentForm extends Component {
                     handleBlur,
                     handleSubmit,
                     isSubmitting,
-                    submitForm,
+                    submitForm,     // ADD submitForm to use for submitting the form IF not using default Formik button.
                     /* and other goodies */
                  } ) => (
                  <form onSubmit={ handleSubmit }>
@@ -99,9 +99,9 @@ class AddStudentForm extends Component {
                     { errors.gender && touched.gender &&
                     <Text type="danger">{ errors.gender }</Text> }
                     <Button className="mt-2 d-block"
+                           // Add this onClick() returning submitForm() IF not using Formik's default button element
                             onClick={ () => submitForm() }
                             type="submit"
-
                             disabled={ isSubmitting }>
                        Submit
                     </Button>
