@@ -20,7 +20,7 @@ public class StudentDataAccessService {
       this.jdbcTemplate = jdbcTemplate;
    }
 
-   // Get ALL students
+   // GET: ALL students:
    List<Student> selectAllStudents() {
       String sql = "" +
               "SELECT" +
@@ -51,5 +51,28 @@ public class StudentDataAccessService {
       };
    }
 
+   // POST: Add 1 student:
+   int insertStudent(UUID studentId, Student student) {
+
+      String sql = "" +
+              "INSERT INTO students (" +
+              " student_id," +
+              " first_name," +
+              " last_name," +
+              " email," +
+              " gender) " +
+              "VALUES (?, ?, ?, ?, ?)";
+
+      // Jdbc uses Update() to insert a record.
+      // when update completes, it returns an Integer Value that is either 0 or 1.
+      return jdbcTemplate.update(
+              sql,
+              studentId,
+              student.getFirstName(),
+              student.getLastName(),
+              student.getEmail(),
+              student.getGender().name().toUpperCase()
+      );
+   }
 
 }

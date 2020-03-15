@@ -22,11 +22,11 @@ public class StudentController {
    @GetMapping
    public List<Student> getAllStudents() {
       return studentService.getAllStudents();
-   } // End of GET: getAllStudents()
+   }
 
-   @PostMapping("/new")
+   @PostMapping("/new")      // RequestBody is in JSON format from the frontend(FormData)
    public void addNewStudent(@RequestBody Student student) {
-      System.out.println(student);
+      studentService.addNewStudent(student);
    }
 
 } // End of Class StudentController

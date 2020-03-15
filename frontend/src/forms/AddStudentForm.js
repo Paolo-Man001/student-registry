@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Button, Input } from "antd";
 import Text from "antd/es/typography/Text";
 import { Formik } from "formik";
+import { addNewStudent } from "../client";
 
 
 class AddStudentForm extends Component {
@@ -9,7 +10,6 @@ class AddStudentForm extends Component {
       const inputMarginY = { margin: '5px 0' };
       return (
           <Formik
-
               initialValues={ {
                  firstName: '',
                  lastName: '',
@@ -35,18 +35,19 @@ class AddStudentForm extends Component {
                  if ( !values.gender ) {
                     errors.gender = '* Gender Required';
                  } else if ( ![ 'MALE', 'Male', 'male', 'FEMALE', 'Female', 'female' ].includes(values.gender) ) {
-                    errors.gender = '* Gender must be (MALE, male, FEMALE, female)';
+                    errors.gender = '* Gender must be "MALE" or "FEMALE"';
                  }
 
                  return errors;
               } }
 
               // Handles the onSubmit
-              onSubmit={ ( values, { setSubmitting } ) => {
-                 setTimeout(() => {
-                    alert(JSON.stringify(values, null, 2));
+              onSubmit={ ( student, { setSubmitting, resetForm } ) => {
+                 student.gender = student.gender.toUpperCase();   // Convert the 'gender' to Uppercase, else Jdbc WILL NOT process the query.
+                 addNewStudent(student).then(() => {
                     setSubmitting(false);
-                 }, 400);
+                    resetForm();       // Reset the form after Submitting.
+                 });
               } }
           >
              { ( {
@@ -95,11 +96,11 @@ class AddStudentForm extends Component {
                         onChange={ handleChange }
                         onBlur={ handleBlur }
                         value={ values.gender }
-                        placeholder="Gender. E.g. Male or Female"/>
+                        placeholder="Gender. E.g. MALE or FEMALE"/>
                     { errors.gender && touched.gender &&
                     <Text type="danger">{ errors.gender }</Text> }
                     <Button className="mt-2 d-block"
-                           // Add this onClick() returning submitForm() IF not using Formik's default button element
+                        // Add this onClick() returning submitForm() IF not using Formik's default button element
                             onClick={ () => submitForm() }
                             type="submit"
                             disabled={ isSubmitting }>
@@ -108,7 +109,6 @@ class AddStudentForm extends Component {
                  </form>
              ) }
           </Formik>
-
       );
    }
 }
