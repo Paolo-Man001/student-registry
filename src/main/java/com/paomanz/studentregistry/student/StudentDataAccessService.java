@@ -51,7 +51,9 @@ public class StudentDataAccessService {
       };
    }
 
-
    // POST: Add 1 student:
+   int insertStudent(UUID newStudentId, Student student) {
+      return 0;
+   }
 
 }

@@ -26,7 +26,7 @@ public class StudentController {
 
    @PostMapping("/new")      // RequestBody is in JSON format from the frontend(FormData)
    public void addNewStudent(@RequestBody Student student) {
-      System.out.println(student);
+      studentService.addNewStudent(student);
    }
 
 } // End of Class StudentController
