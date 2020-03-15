@@ -4,6 +4,7 @@ import { Avatar, Table, Spin, Modal } from "antd";
 import { LoadingOutlined } from '@ant-design/icons';
 import { Container } from "react-bootstrap";
 import ComponentFooter from "./ComponentFooter";
+import AddStudentForm from "./forms/AddStudentForm";
 
 
 const getIndicatorIcon = () => <LoadingOutlined style={ { fontSize: 24 } } spin/>;
@@ -98,17 +99,18 @@ class ComponentMain extends Component {
                 <Table dataSource={ students }
                        columns={ columns }
                        rowKey='studentId'
-                       pagination={ false }
-                />
+                       pagination={ false }/>
+
                 <Modal
-                    title='Add New Student'
+                    title={<h2>Add New Student</h2>}
                     visible={ isAddStudentModalVisible }
                     onOk={ this.closeAddStudentModal }
                     onCancel={ this.closeAddStudentModal }
-                width={1000}>
-                   <h1>Hello Modal!</h1>
+                    width={ 1000 }>
+                   <AddStudentForm/>
                 </Modal>
-                <ComponentFooter handleAddStudentClick={this.openAddStudentModal} numberOfStudents={ students.length }/>
+
+                <ComponentFooter handleAddStudentClick={ this.openAddStudentModal } numberOfStudents={ students.length }/>
              </Container>
          );
       }
