@@ -102,7 +102,7 @@ class ComponentMain extends Component {
                        pagination={ false }/>
 
                 <Modal
-                    title={<h2>Add New Student</h2>}
+                    title={<h3>Add New Student</h3>}
                     visible={ isAddStudentModalVisible }
                     onOk={ this.closeAddStudentModal }
                     onCancel={ this.closeAddStudentModal }
