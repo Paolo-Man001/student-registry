@@ -109,7 +109,12 @@ class ComponentMain extends Component {
                     onOk={ this.closeAddStudentModal }
                     onCancel={ this.closeAddStudentModal }
                     width={ 1000 }>
-                   <AddStudentForm/>
+
+                   <AddStudentForm
+                       onSuccess={ () => {
+                          this.closeAddStudentModal();
+                          this.fetchStudents();
+                       } }/>
                 </Modal>
 
                 <ComponentFooter handleAddStudentClick={ this.openAddStudentModal } numberOfStudents={ students.length }/>
