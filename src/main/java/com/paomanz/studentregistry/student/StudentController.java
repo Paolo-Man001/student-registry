@@ -21,10 +21,11 @@ public class StudentController {
 
    @GetMapping
    public List<Student> getAllStudents() {
-      return studentService.getAllStudents();
+      throw new IllegalStateException("FROM: StudentController - @Get - getAllStudents ::Sorry mate, can't get any students!");
+//      return studentService.getAllStudents();
    }
 
-   @PostMapping("/new")      // RequestBody is in JSON format from the frontend(FormData)
+   @PostMapping      // RequestBody is in JSON format from the frontend(FormData)
    public void addNewStudent(@RequestBody Student student) {
       studentService.addNewStudent(student);
    }

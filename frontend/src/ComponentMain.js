@@ -34,10 +34,12 @@ class ComponentMain extends Component {
       this.setState({ isFetching: true });
       getAllStudents().then(res => res.json()
           .then(students => {
-             // console.log(students);
-             this.setState({ students, isFetching: false });
-          })
-      );
+             console.log(students);
+             this.setState({
+                students,
+                isFetching: false
+             });
+          }));
    }
 
 
