@@ -32,14 +32,24 @@ class ComponentMain extends Component {
 
    fetchStudents() {
       this.setState({ isFetching: true });
-      getAllStudents().then(res => res.json()
-          .then(students => {
-             console.log(students);
+
+      getAllStudents()
+          .then(res => res.json()
+              .then(students => {
+                 console.log(students);
+                 this.setState({
+                    students,
+                    isFetching: false
+                 });
+              }))
+          .catch(error => {
+             // this is from Promise(checkStatus) returned in client.js :
+             console.log(error.error.message);
+
              this.setState({
-                students,
                 isFetching: false
              });
-          }));
+          });
    }
 
 

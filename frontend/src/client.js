@@ -10,7 +10,8 @@ const checkStatus = response => {
       response.json().then(e => {
          error.error = e;
       });
-      return Promise.reject(error);
+
+      return Promise.reject(error); // Promise returned with 'error-obj' parsed.
    }
 };
 

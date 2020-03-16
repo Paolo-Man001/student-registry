@@ -21,7 +21,7 @@ public class StudentController {
 
    @GetMapping
    public List<Student> getAllStudents() {
-      throw new IllegalStateException("FROM: StudentController - @Get - getAllStudents ::Sorry mate, can't get any students!");
+      throw new IllegalStateException("Sorry mate, we couldn't get to any students...");
 //      return studentService.getAllStudents();
    }
 
