@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { getAllStudents } from './client';
-import { Avatar, Table, Spin, Modal } from "antd";
+import { Avatar, Table, Spin, Modal, notification } from "antd";
 import { LoadingOutlined } from '@ant-design/icons';
 import { Container } from "react-bootstrap";
 import ComponentFooter from "./ComponentFooter";
 import AddStudentForm from "./forms/AddStudentForm";
+import { errorNotification } from "./Notification";
 
 
 const getIndicatorIcon = () => <LoadingOutlined style={ { fontSize: 24 } } spin/>;
@@ -29,7 +30,6 @@ class ComponentMain extends Component {
    openAddStudentModal = () => this.setState({ isAddStudentModalVisible: true });
    closeAddStudentModal = () => this.setState({ isAddStudentModalVisible: false });
 
-
    fetchStudents() {
       this.setState({ isFetching: true });
 
@@ -44,7 +44,10 @@ class ComponentMain extends Component {
               }))
           .catch(error => {
              // this is from Promise(checkStatus) returned in client.js :
-             console.log(error.error.message);
+             // console.log(error.error.message);
+             const message = error.error.message;
+             const desc = error.error.error;
+             errorNotification(message, desc);
 
              this.setState({
                 isFetching: false
