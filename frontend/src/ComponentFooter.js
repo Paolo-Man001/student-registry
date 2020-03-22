@@ -6,13 +6,14 @@ import './ComponentFooter.css';
 const ComponentFooter = ( props ) => (
     <div>
        <Container fluid className="footer text-center">
-          { props.numberOfStudents ?
-              <Avatar
-                  style={ { backgroundColor: '#f56a00', marginRight: '5px' } }
-                  size='large'>
-                 { props.numberOfStudents }
-              </Avatar>
-              : null
+          {
+             props.numberOfStudents !== undefined ?
+                 <Avatar
+                     style={ { backgroundColor: '#f56a00', marginRight: '5px' } }
+                     size='large'>
+                    { props.numberOfStudents }
+                 </Avatar>
+                 : null
           }
           <Button onClick={ props.handleAddStudentClick } type='primary'>
              Add New Student +
