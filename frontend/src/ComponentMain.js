@@ -44,7 +44,7 @@ class ComponentMain extends Component {
               }))
           .catch(error => {
              // this is from Promise(checkStatus) returned in client.js :
-             // console.log(error.error.message);
+             console.log(error.error);
              const message = error.error.message;
              const desc = error.error.error;
              errorNotification(message, desc);

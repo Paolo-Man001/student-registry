@@ -1,5 +1,6 @@
 package com.paomanz.studentregistry.student;
 
+import com.paomanz.studentregistry.exception.ApiRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +22,9 @@ public class StudentController {
 
    @GetMapping
    public List<Student> getAllStudents() {
-      throw new IllegalStateException("Sorry mate, we couldn't get to any students...");
+      throw new ApiRequestException("Sorry mate, we couldn't get to any students...with custom exception");
+//      throw new IllegalStateException("Sorry mate, we couldn't get to any students...");
+
 //      return studentService.getAllStudents();
    }
 
