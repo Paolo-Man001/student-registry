@@ -143,9 +143,7 @@ class ComponentMain extends Component {
          );
       }
 
-
-      // ... else, return <h1>
-      // return <h1>No students found</h1>;
+      // ... else, return <Empty/> component from ant.design
       return (
           <>
              <Empty description={

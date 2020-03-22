@@ -22,10 +22,9 @@ public class StudentController {
 
    @GetMapping
    public List<Student> getAllStudents() {
-      throw new ApiRequestException("Sorry mate, we couldn't get to any students...with custom exception");
-//      throw new IllegalStateException("Sorry mate, we couldn't get to any students...");
 
-//      return studentService.getAllStudents();
+      //      throw new ApiRequestException("Sorry mate, we couldn't get to any students...with custom exception");
+      return studentService.getAllStudents();
    }
 
    @PostMapping      // RequestBody is in JSON format from the frontend(FormData)
