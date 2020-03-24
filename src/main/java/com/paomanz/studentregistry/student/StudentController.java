@@ -4,6 +4,7 @@ import com.paomanz.studentregistry.exception.ApiRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 // Tell SpringBoot this Class will be served as a REST-controller:
@@ -28,7 +29,7 @@ public class StudentController {
    }
 
    @PostMapping      // RequestBody is in JSON format from the frontend(FormData)
-   public void addNewStudent(@RequestBody Student student) {
+   public void addNewStudent(@RequestBody @Valid Student student) {
       studentService.addNewStudent(student);
    }
 

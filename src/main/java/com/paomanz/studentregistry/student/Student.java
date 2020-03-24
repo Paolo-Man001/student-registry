@@ -2,13 +2,25 @@ package com.paomanz.studentregistry.student;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 public class Student {
+
    private final UUID studentId;
+
+   @NotBlank
    private final String firstName;
+
+   @NotBlank
    private final String lastName;
+
+   @NotBlank
    private final String email;
+
+   @NotNull
    private final Gender gender;
 
    // @JsonProperty will map the JSON Payload(RequestBody) from the client to the property keys(e.g "firstName")

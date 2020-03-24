@@ -1,5 +1,6 @@
 package com.paomanz.studentregistry.student;
 
+import org.hibernate.validator.internal.constraintvalidators.bv.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +34,7 @@ public class StudentService {
       // If the studentId is null; Generate one ourselves.
       UUID newStudentId = Optional.ofNullable(studentId)
               .orElse(UUID.randomUUID());
+      // TODO: Validate Email
 
       // TODO: Verify email is NOT taken
       studentDataAccessService.insertStudent(newStudentId, student);
