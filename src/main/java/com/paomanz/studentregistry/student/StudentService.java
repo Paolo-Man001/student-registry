@@ -1,6 +1,7 @@
 package com.paomanz.studentregistry.student;
 
-import org.hibernate.validator.internal.constraintvalidators.bv.EmailValidator;
+import com.paomanz.studentregistry.EmailValidator;
+import com.paomanz.studentregistry.exception.ApiRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +16,12 @@ import java.util.UUID;
 public class StudentService {
 
    private final StudentDataAccessService studentDataAccessService;
+   private final EmailValidator emailValidator;
 
    @Autowired
-   public StudentService(StudentDataAccessService studentDataAccessService) {
+   public StudentService(StudentDataAccessService studentDataAccessService, EmailValidator emailValidator) {
       this.studentDataAccessService = studentDataAccessService;
+      this.emailValidator = emailValidator;
    }
 
    // GET:
@@ -34,8 +37,11 @@ public class StudentService {
       // If the studentId is null; Generate one ourselves.
       UUID newStudentId = Optional.ofNullable(studentId)
               .orElse(UUID.randomUUID());
-      // TODO: Validate Email
 
+      // TODO: Validate Email
+      if (!emailValidator.test(student.getEmail())) {
+         throw new ApiRequestException(student.getEmail() + " is not valid.");
+      }
       // TODO: Verify email is NOT taken
       studentDataAccessService.insertStudent(newStudentId, student);
    }
