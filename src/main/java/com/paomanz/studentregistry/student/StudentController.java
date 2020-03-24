@@ -23,7 +23,6 @@ public class StudentController {
 
    @GetMapping
    public List<Student> getAllStudents() {
-
       //      throw new ApiRequestException("Sorry mate, we couldn't get to any students...with custom exception");
       return studentService.getAllStudents();
    }

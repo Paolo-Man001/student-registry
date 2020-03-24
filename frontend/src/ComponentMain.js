@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { getAllStudents } from './client';
-import { Avatar, Table, Spin, Modal, notification, Empty } from "antd";
+import { Avatar, Table, Spin, Modal, Empty } from "antd";
 import { LoadingOutlined } from '@ant-design/icons';
 import { Container } from "react-bootstrap";
 import ComponentFooter from "./ComponentFooter";
@@ -36,7 +36,7 @@ class ComponentMain extends Component {
       getAllStudents()
           .then(res => res.json()
               .then(students => {
-                 console.log(students);
+                 // console.log(students);
                  this.setState({
                     students,
                     isFetching: false
@@ -72,7 +72,15 @@ class ComponentMain extends Component {
                     onSuccess={ () => {
                        this.closeAddStudentModal();
                        this.fetchStudents();
-                    } }/>
+                    } }
+
+                    onFailure={ (error) => {
+                       console.log(JSON.stringify(error));
+                       const message = error.error.message;
+                       const desc = error.error.httpStatus;
+                       errorNotification(message, desc);
+                    } }
+                />
              </Modal>
              <ComponentFooter handleAddStudentClick={ this.openAddStudentModal } numberOfStudents={ students.length }/>
           </>
@@ -145,12 +153,12 @@ class ComponentMain extends Component {
 
       // ... else, return <Empty/> component from ant.design
       return (
-          <>
+          <div>
              <Empty description={
                 <h2>No Students Found</h2>
              }/>
              { commonElements() }
-          </>
+          </div>
       );
 
    } // End render()

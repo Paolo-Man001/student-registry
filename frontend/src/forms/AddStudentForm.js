@@ -45,11 +45,17 @@ const AddStudentForm = props => (
         // Handles the onSubmit
         onSubmit={ ( student, { setSubmitting, resetForm } ) => {
            student.gender = student.gender.toUpperCase();   // Convert the 'gender' to Uppercase, else Jdbc WILL NOT process the query.
-           addNewStudent(student).then(() => {
-              setSubmitting(false);
-              // resetForm();       // Reset the form after Submitting.
-              props.onSuccess();
-           });
+           addNewStudent(student)
+               .then(() => {
+                  // resetForm();       // Reset the form after Submitting.
+                  props.onSuccess();
+               })
+               .catch(err => {
+                  props.onFailure(err);
+               })
+               .finally(() => {
+                  setSubmitting(false);
+               });
         } }
     >
        { ( {
@@ -71,8 +77,10 @@ const AddStudentForm = props => (
                   onBlur={ handleBlur }
                   value={ values.firstName }
                   placeholder="First Name. E.g. Jason"/>
+
               { errors.firstName && touched.firstName &&
               <Text type="danger">{ errors.firstName }</Text> }
+
               <Input
                   style={ inputMarginY }
                   name="lastName"
@@ -82,6 +90,7 @@ const AddStudentForm = props => (
                   placeholder="Last Name. E.g. Bourne"/>
               { errors.lastName && touched.lastName &&
               <Text type="danger">{ errors.lastName }</Text> }
+
               <Input
                   style={ inputMarginY }
                   type="email"
@@ -92,6 +101,7 @@ const AddStudentForm = props => (
                   placeholder="Email.E.g. jasonbourne@gmail.com"/>
               { errors.email && touched.email &&
               <Text type="danger">{ errors.email }</Text> }
+
               <Input
                   style={ inputMarginY }
                   name="gender"
@@ -101,6 +111,7 @@ const AddStudentForm = props => (
                   placeholder="Gender. E.g. MALE or FEMALE"/>
               { errors.gender && touched.gender &&
               <Text type="danger">{ errors.gender }</Text> }
+
               <Button className="mt-2 d-block"
                   // Add this onClick() returning submitForm() IF not using Formik's default button element
                       onClick={ () => submitForm() }
