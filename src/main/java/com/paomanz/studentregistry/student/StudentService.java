@@ -33,16 +33,20 @@ public class StudentService {
    void addNewStudent(Student student) {
       addNewStudent(null, student);
    }
+
    void addNewStudent(UUID studentId, Student student) {
       // If the studentId is null; Generate one ourselves.
       UUID newStudentId = Optional.ofNullable(studentId)
               .orElse(UUID.randomUUID());
 
-      // TODO: Validate Email
+      // Validate Email
       if (!emailValidator.test(student.getEmail())) {
-         throw new ApiRequestException(student.getEmail() + " is not valid.");
+         throw new ApiRequestException("The email - '" + student.getEmail() + "' - is not valid.");
       }
-      // TODO: Verify email is NOT taken
+      // Verify email is NOT taken
+      if (studentDataAccessService.isEmailTaken(student.getEmail())) {
+         throw new ApiRequestException("The email - '" + student.getEmail() + "' - has already been taken.");
+      }
       studentDataAccessService.insertStudent(newStudentId, student);
    }
 
