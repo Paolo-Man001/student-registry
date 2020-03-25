@@ -24,7 +24,6 @@ public class StudentController {
 
    @GetMapping
    public List<Student> getAllStudents() {
-      //      throw new ApiRequestException("Sorry mate, we couldn't get to any students...with custom exception");
       return studentService.getAllStudents();
    }
 
@@ -32,8 +31,6 @@ public class StudentController {
    @GetMapping(path = "{studentId}/courses")
    public List<StudentCourse> getAllStudentCourses(
            @PathVariable("studentId") UUID studentId) {
-
-//      System.out.println(studentId);
       return studentService.getAllStudentCourses(studentId);
    }
 

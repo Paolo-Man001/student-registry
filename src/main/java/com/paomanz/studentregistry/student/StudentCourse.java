@@ -1,7 +1,5 @@
 package com.paomanz.studentregistry.student;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -17,15 +15,15 @@ public class StudentCourse {
    private final Integer grade;
 
 
-   public StudentCourse(@JsonProperty("studentId")UUID studentId,
-                        @JsonProperty("courseId")UUID courseId,
-                        @JsonProperty("name")String name,
-                        @JsonProperty("description")String description,
-                        @JsonProperty("department")String department,
-                        @JsonProperty("teacherName")String teacherName,
-                        @JsonProperty("startDate")LocalDate startDate,
-                        @JsonProperty("endDate")LocalDate endDate,
-                        @JsonProperty("grade")Integer grade) {
+   public StudentCourse(UUID studentId,
+                        UUID courseId,
+                        String name,
+                        String description,
+                        String department,
+                        String teacherName,
+                        LocalDate startDate,
+                        LocalDate endDate,
+                        Integer grade) {
 
       this.studentId = studentId;
       this.courseId = courseId;

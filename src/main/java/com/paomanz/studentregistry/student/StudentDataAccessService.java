@@ -5,7 +5,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -33,7 +32,6 @@ public class StudentDataAccessService {
               " gender " +
               "FROM students;";
 
-      // sql statement : e.g. 'SELECT uuid, name FROM students;'
       return jdbcTemplate.query(sql, mapStudentFromDb());
    }
 
