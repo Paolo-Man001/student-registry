@@ -29,6 +29,11 @@ public class StudentService {
       return studentDataAccessService.selectAllStudents();
    }
 
+   // GET: ALL Student Courses :
+   List<StudentCourse> getAllStudentCourses(UUID studentId) {
+      return studentDataAccessService.selectAllStudentCourses(studentId);
+   }
+
    // POST: Add 1 student
    void addNewStudent(Student student) {
       addNewStudent(null, student);
