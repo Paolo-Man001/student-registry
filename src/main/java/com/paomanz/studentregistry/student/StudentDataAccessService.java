@@ -53,7 +53,6 @@ public class StudentDataAccessService {
 
    // POST: Add 1 student:
    int insertStudent(UUID studentId, Student student) {
-
       String sql = "" +
               "INSERT INTO students (" +
               " student_id," +
@@ -61,7 +60,7 @@ public class StudentDataAccessService {
               " last_name," +
               " email," +
               " gender) " +
-              "VALUES (?, ?, ?, ?, ?)";
+              "VALUES (?, ?, ?, ?, ?::gender)";
 
       // Jdbc uses Update() to insert a record.
       // when update completes, it returns an Integer Value that is either 0 or 1.
