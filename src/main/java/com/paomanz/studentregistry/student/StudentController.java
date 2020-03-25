@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 
 // Tell SpringBoot this Class will be served as a REST-controller:
 // specify the Mapping with "" - double-quotes
@@ -25,6 +26,15 @@ public class StudentController {
    public List<Student> getAllStudents() {
       //      throw new ApiRequestException("Sorry mate, we couldn't get to any students...with custom exception");
       return studentService.getAllStudents();
+   }
+
+   // GET: ALL Student Courses :
+   @GetMapping(path = "{studentId}/courses")
+   public List<StudentCourse> getAllStudentCourses(
+           @PathVariable("studentId") UUID studentId) {
+
+//      System.out.println(studentId);
+      return studentService.getAllStudentCourses(studentId);
    }
 
    @PostMapping      // RequestBody is in JSON format from the frontend(FormData)
