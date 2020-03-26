@@ -62,6 +62,7 @@ const AddStudentForm = props => (
               handleSubmit,
               isSubmitting,
               submitForm,     // ADD 'submitForm' to use for submitting IF we don't use the default Formik button.
+              isValid
               /* and other goodies */
            } ) => (
            <form onSubmit={ handleSubmit }>
@@ -111,7 +112,7 @@ const AddStudentForm = props => (
                   // Add this onClick() returning submitForm() IF not using Formik's default button element
                       onClick={ () => submitForm() }
                       type="submit"
-                      disabled={ isSubmitting }>
+                      disabled={ isSubmitting || ( touched && !isValid ) }>
                  Submit
               </Button>
            </form>
