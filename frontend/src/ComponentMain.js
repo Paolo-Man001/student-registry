@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { getAllStudents } from './client';
-import { Avatar, Table, Spin, Modal, Empty } from "antd";
-import { LoadingOutlined } from '@ant-design/icons';
+import { Avatar, Table, Spin, Modal, Empty, Button, Popconfirm } from "antd";
+import { LoadingOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { Container } from "react-bootstrap";
 import ComponentFooter from "./ComponentFooter";
 import AddStudentForm from "./forms/AddStudentForm";
@@ -26,10 +26,11 @@ class ComponentMain extends Component {
       this.fetchStudents();
    }
 
-
+   // MODALS:
    openAddStudentModal = () => this.setState({ isAddStudentModalVisible: true });
    closeAddStudentModal = () => this.setState({ isAddStudentModalVisible: false });
 
+   // FETCH: ALL Students :
    fetchStudents() {
       this.setState({ isFetching: true });
 
@@ -55,6 +56,14 @@ class ComponentMain extends Component {
           });
    }
 
+   // deleteStudent = studentId => {
+   //    deleteStudent(studentId).then(() => {
+   //       this.openNotificationWithIcon('success', 'Student deleted', `${studentId} was deleted`);
+   //       this.fetchStudents();
+   //    }).catch(err => {
+   //       this.openNotificationWithIcon('error', 'error', `(${err.error.status}) ${err.error.error}`);
+   //    });
+   // }
 
    render() {
 
@@ -74,7 +83,7 @@ class ComponentMain extends Component {
                        this.fetchStudents();
                     } }
 
-                    onFailure={ (error) => {
+                    onFailure={ ( error ) => {
                        console.log(JSON.stringify(error));
                        const message = error.error.message;
                        const desc = error.error.httpStatus;
@@ -131,7 +140,27 @@ class ComponentMain extends Component {
                title: 'Gender',
                dataIndex: 'gender',
                key: 'gender',
-            }
+            },
+            {
+               title: 'Action',
+               key: 'action',
+               render: ( text, record ) => (
+                   <>
+                      <Button type="primary" style={ { marginRight: 16 } }>Edit</Button>
+                      <Popconfirm
+                          icon={ <QuestionCircleOutlined style={ { color: 'red' } }/> }
+                          placement='topRight'
+                          title={ `DELETE ID: ${ record.studentId }` }
+                          okText='Yes' cancelText='No'
+                          // onConfirm={ () => this.deleteStudent(record.studentId) }
+                          onConfirm={ () => alert(`Deleted ID: ${record.studentId}`) }
+                          onCancel={ e => e.stopPropagation() }
+                      >
+                         <Button danger>Delete</Button>
+                      </Popconfirm>
+                   </>
+               ),
+            },
          ];
 
          return (
