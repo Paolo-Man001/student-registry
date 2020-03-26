@@ -55,4 +55,7 @@ public class StudentService {
       studentDataAccessService.insertStudent(newStudentId, student);
    }
 
+   void deleteSTudent(UUID studentId) {
+      studentDataAccessService.deleteStudent(studentId);
+   }
 }

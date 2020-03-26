@@ -29,3 +29,10 @@ export const addNewStudent = student =>
        body: JSON.stringify(student)   // value 'body:' is the object which @RequestBody(StudentController) annotation gets
 
     }).then(checkStatus);
+
+// DELETE: by Id
+export const deleteStudent = studentId =>
+    fetch(`api/students/${ studentId }`, {
+       method: 'DELETE'
+    })
+        .then(checkStatus);

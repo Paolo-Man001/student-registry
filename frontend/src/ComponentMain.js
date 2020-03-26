@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { getAllStudents } from './client';
-import { Avatar, Table, Spin, Modal, Empty, Button, Popconfirm } from "antd";
+import { deleteStudent, getAllStudents } from './client';
+import { Avatar, Table, Spin, Modal, Empty, Button, Popconfirm, notification } from "antd";
 import { LoadingOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { Container } from "react-bootstrap";
 import ComponentFooter from "./ComponentFooter";
@@ -26,9 +26,11 @@ class ComponentMain extends Component {
       this.fetchStudents();
    }
 
-   // MODALS:
+   // MODALS :
    openAddStudentModal = () => this.setState({ isAddStudentModalVisible: true });
    closeAddStudentModal = () => this.setState({ isAddStudentModalVisible: false });
+   // NOTIFICATION :
+   openNotificationWithIcon = ( type, message, description ) => notification[type]({ message, description });
 
    // FETCH: ALL Students :
    fetchStudents() {
@@ -56,14 +58,16 @@ class ComponentMain extends Component {
           });
    }
 
-   // deleteStudent = studentId => {
-   //    deleteStudent(studentId).then(() => {
-   //       this.openNotificationWithIcon('success', 'Student deleted', `${studentId} was deleted`);
-   //       this.fetchStudents();
-   //    }).catch(err => {
-   //       this.openNotificationWithIcon('error', 'error', `(${err.error.status}) ${err.error.error}`);
-   //    });
-   // }
+   // DELETE by Id :
+   deleteStudent = studentId => {
+      // alert(`Deleting Id : ${ studentId }`);
+      deleteStudent(studentId).then(() => {
+         this.openNotificationWithIcon('success', 'Student deleted', `Id: ${ studentId } was deleted.`);
+         this.fetchStudents();
+      }).catch(err => {
+         this.openNotificationWithIcon('error', 'error', `(${ err.error.status }) ${ err.error.error }`);
+      });
+   };
 
    render() {
 
@@ -152,8 +156,7 @@ class ComponentMain extends Component {
                           placement='topRight'
                           title={ `DELETE ID: ${ record.studentId }` }
                           okText='Yes' cancelText='No'
-                          // onConfirm={ () => this.deleteStudent(record.studentId) }
-                          onConfirm={ () => alert(`Deleted ID: ${record.studentId}`) }
+                          onConfirm={ () => this.deleteStudent(record.studentId) }
                           onCancel={ e => e.stopPropagation() }
                       >
                          <Button danger>Delete</Button>

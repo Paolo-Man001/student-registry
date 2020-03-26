@@ -1,6 +1,5 @@
 package com.paomanz.studentregistry.student;
 
-import com.paomanz.studentregistry.exception.ApiRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,9 +33,17 @@ public class StudentController {
       return studentService.getAllStudentCourses(studentId);
    }
 
+   // ADD: New Student
    @PostMapping      // RequestBody is in JSON format from the frontend(FormData)
    public void addNewStudent(@RequestBody @Valid Student student) {
       studentService.addNewStudent(student);
+   }
+
+   // DELETE: Student by Id
+   @DeleteMapping(path = "{studentId}")
+   public void deleteStudent(
+           @PathVariable("studentId") UUID studentId) {
+      studentService.deleteSTudent(studentId);
    }
 
 } // End of Class StudentController
