@@ -11,12 +11,7 @@ const inputMarginY = { margin: '5px 0' };
 
 const AddStudentForm = props => (
     <Formik
-        initialValues={ {
-           firstName: '',
-           lastName: '',
-           email: '',
-           gender: ''
-        } }
+        initialValues={ { firstName: '', lastName: '', email: '', gender: '' } }
 
         validate={ values => {
            const errors = {};
@@ -66,7 +61,7 @@ const AddStudentForm = props => (
               handleBlur,
               handleSubmit,
               isSubmitting,
-              submitForm,     // ADD submitForm to use for submitting the form IF not using default Formik button.
+              submitForm,     // ADD 'submitForm' to use for submitting IF we don't use the default Formik button.
               /* and other goodies */
            } ) => (
            <form onSubmit={ handleSubmit }>

@@ -96,8 +96,6 @@ class ComponentMain extends Component {
 
       // If True, return a table...
       if ( students && students.length ) {
-
-
          const columns = [
             {
                title: '',
