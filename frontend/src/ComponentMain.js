@@ -16,7 +16,8 @@ class ComponentMain extends Component {
       this.state = {
          students: [],
          isFetching: false,
-         isAddStudentModalVisible: false
+         isAddStudentModalVisible: false,
+         isStudentCourseModalVisible: false
       };
 
       this.fetchStudents = this.fetchStudents.bind(this);
@@ -29,6 +30,9 @@ class ComponentMain extends Component {
    // MODALS :
    openAddStudentModal = () => this.setState({ isAddStudentModalVisible: true });
    closeAddStudentModal = () => this.setState({ isAddStudentModalVisible: false });
+
+   openStudentCourseModal = () => this.setState({ isStudentCourseModalVisible: true });
+   closeStudentCourseModal = () => this.setState({ isStudentCourseModalVisible: false });
    // NOTIFICATION :
    openNotificationWithIcon = ( type, message, description ) => notification[type]({ message, description });
 
@@ -69,33 +73,60 @@ class ComponentMain extends Component {
       });
    };
 
+   // OnIdClick :
+   handleOnIdClick = ( text ) => {
+      this.openStudentCourseModal();
+   };
+
+
    render() {
 
-      const { students, isFetching, isAddStudentModalVisible } = this.state;
+      const {
+         students,
+         isFetching,
+         isAddStudentModalVisible,
+         isStudentCourseModalVisible
+      } = this.state;
+
       const commonElements = () => (
           <>
-             <Modal
-                 title={ <h4>Add New Student</h4> }
-                 visible={ isAddStudentModalVisible }
-                 onOk={ this.closeAddStudentModal }
-                 onCancel={ this.closeAddStudentModal }
-                 width={ 1000 }>
+             <div>
+                <Modal
+                    title={ <h4>Add New Student</h4> }
+                    visible={ isAddStudentModalVisible }
+                    onOk={ this.closeAddStudentModal }
+                    onCancel={ this.closeAddStudentModal }
+                    width={ 1000 }>
 
-                <AddStudentForm
-                    onSuccess={ () => {
-                       this.closeAddStudentModal();
-                       this.fetchStudents();
-                    } }
+                   <AddStudentForm
+                       onSuccess={ () => {
+                          this.closeAddStudentModal();
+                          this.fetchStudents();
+                       } }
 
-                    onFailure={ ( error ) => {
-                       console.log(JSON.stringify(error));
-                       const message = error.error.message;
-                       const desc = error.error.httpStatus;
-                       errorNotification(message, desc);
-                    } }
-                />
-             </Modal>
-             <ComponentFooter handleAddStudentClick={ this.openAddStudentModal } numberOfStudents={ students.length }/>
+                       onFailure={ ( error ) => {
+                          console.log(JSON.stringify(error));
+                          const message = error.error.message;
+                          const desc = error.error.httpStatus;
+                          errorNotification(message, desc);
+                       } }
+                   />
+                </Modal>
+                <ComponentFooter handleAddStudentClick={ this.openAddStudentModal } numberOfStudents={ students.length }/>
+             </div>
+             <div>
+                <Modal
+                    title={ <h4>Student Course</h4> }
+                    visible={ isStudentCourseModalVisible }
+                    onOk={ this.closeStudentCourseModal }
+                    onCancel={ this.closeStudentCourseModal }
+                    footer={null}
+                >
+                   <p>Some contents...</p>
+                   <p>Some contents...</p>
+                   <p>Some contents...</p>
+                </Modal>
+             </div>
           </>
       );
 
@@ -107,7 +138,7 @@ class ComponentMain extends Component {
          );
       }
 
-      // If True, return a table...
+// If True, return a table...
       if ( students && students.length ) {
          const columns = [
             {
@@ -124,6 +155,13 @@ class ComponentMain extends Component {
                title: 'Student Id',
                dataIndex: 'studentId',
                key: 'studentId',
+               render: ( text ) => (
+                   <Button
+                       type="link"
+                       onClick={ () => this.handleOnIdClick(text) }
+                   >{ text }
+                   </Button>
+               )
             },
             {
                title: 'First Name',
@@ -181,7 +219,7 @@ class ComponentMain extends Component {
          );
       }
 
-      // ... else, return <Empty/> component from ant.design
+// ... else, return <Empty/> component from ant.design
       return (
           <div>
              <Empty description={
