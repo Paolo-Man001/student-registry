@@ -40,10 +40,7 @@ class ComponentMain extends Component {
    closeAddStudentModal = () => this.setState({ isAddStudentModalVisible: false });
 
    openStudentCourseModal = () => this.setState({ isStudentCourseModalVisible: true });
-   closeStudentCourseModal = () => this.setState({
-      isStudentCourseModalVisible: false
-      // studentCourses: []
-   });
+   closeStudentCourseModal = () => this.setState({ isStudentCourseModalVisible: false });
 
    // NOTIFICATION :
    openNotificationWithIcon = ( type, message, description ) => notification[type]({ message, description });
@@ -51,7 +48,6 @@ class ComponentMain extends Component {
    // FETCH: ALL Students :
    fetchStudents() {
       this.setState({ isFetching: true });
-
       getAllStudents()
           .then(res => res.json()
               .then(students => {
@@ -76,16 +72,14 @@ class ComponentMain extends Component {
 
    // GET: Student Courses : OnIdClick :
    handleOnIdClick = ( studentId ) => {
-      // console.log(studentId);
-
       getAllStudentCourses(studentId)
           .then(res => res.json()
               .then(studentCourses => {
-                 console.log(studentCourses);
+                 // console.log(studentCourses);
                  this.setState({
                     studentCourses
                  });
-                 console.log(`${ studentCourses.length } Course/s for student ID: ${ studentId }`);
+                 // console.log(`${ studentCourses.length } Course/s for student ID: ${ studentId }`);
               }))
           .catch(error => {
              // this is from Promise(checkStatus) returned in client.js :
@@ -151,11 +145,9 @@ class ComponentMain extends Component {
                                        <hr/>
                                     </div>
                                 )
-
                              }
                           </>
-                          :
-                          <h5>No courses found</h5>
+                          : <h5 className="text-danger">No courses found</h5>
                    }
                 </Modal>
 
@@ -184,8 +176,9 @@ class ComponentMain extends Component {
                 <ComponentFooter handleAddStudentClick={ this.openAddStudentModal } numberOfStudents={ students.length }/>
              </div>
           </>
-      );
+      ); // END of commonElements
 
+      // PROGRESS Bar/Spinner :
       if ( isFetching ) {
          return (
              <div className="text-center mt-5">
@@ -194,7 +187,7 @@ class ComponentMain extends Component {
          );
       }
 
-      // If True, return a table...
+      // STUDENT TABLE: If True, return a table...
       if ( students && students.length ) {
          const columns = [
             {
@@ -273,7 +266,7 @@ class ComponentMain extends Component {
                 { commonElements() }
              </Container>
          );
-      }
+      }  // END of If-else : TABLE
 
       // ... else, return <Empty/> component from ant.design
       return (
@@ -287,7 +280,7 @@ class ComponentMain extends Component {
 
    } // End render()
 
-}
+} // End ComponentMain
 
 
 export default ComponentMain
