@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 import { deleteStudent, getAllStudentCourses, getAllStudents } from './client';
-import { Avatar, Table, Spin, Modal, Empty, Button, Popconfirm, notification } from "antd";
+import {
+   Avatar, Table,
+   Spin, Modal,
+   Empty, Button,
+   Popconfirm, notification,
+   Descriptions
+} from "antd";
+
 import { LoadingOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { Container } from "react-bootstrap";
 import ComponentFooter from "./ComponentFooter";
@@ -33,7 +40,10 @@ class ComponentMain extends Component {
    closeAddStudentModal = () => this.setState({ isAddStudentModalVisible: false });
 
    openStudentCourseModal = () => this.setState({ isStudentCourseModalVisible: true });
-   closeStudentCourseModal = () => this.setState({ isStudentCourseModalVisible: false });
+   closeStudentCourseModal = () => this.setState({
+      isStudentCourseModalVisible: false
+      // studentCourses: []
+   });
 
    // NOTIFICATION :
    openNotificationWithIcon = ( type, message, description ) => notification[type]({ message, description });
@@ -67,26 +77,15 @@ class ComponentMain extends Component {
    // GET: Student Courses : OnIdClick :
    handleOnIdClick = ( studentId ) => {
       // console.log(studentId);
-      this.setState({ isFetching: true });
 
       getAllStudentCourses(studentId)
           .then(res => res.json()
               .then(studentCourses => {
                  console.log(studentCourses);
-                 if ( !studentCourses.length < 1 ) {
-                    this.setState({
-                       studentCourses,
-                       isFetching: false
-                    });
-                    console.log(`${ studentCourses.length } Course/s for student ID: ${ studentId }`);
-
-                    return;
-                 }
-
                  this.setState({
-                    isFetching: false
+                    studentCourses
                  });
-                 console.log(`${ this.state.studentCourses.length } Course/s for student ID: ${ studentId }`);
+                 console.log(`${ studentCourses.length } Course/s for student ID: ${ studentId }`);
               }))
           .catch(error => {
              // this is from Promise(checkStatus) returned in client.js :
@@ -94,10 +93,6 @@ class ComponentMain extends Component {
              const message = error.error.message;
              const desc = error.error.error;
              errorNotification(message, desc);
-
-             this.setState({
-                isFetching: false
-             });
           });
       this.openStudentCourseModal();
    };
@@ -134,18 +129,25 @@ class ComponentMain extends Component {
                     onOk={ this.closeStudentCourseModal }
                     onCancel={ this.closeStudentCourseModal }
                     footer={ null }
+                    width={ 1000 }
                 >
                    {
-                      !studentCourses.length < 1 ?
+                      !this.state.studentCourses.length < 1 ?
                           <>
                              {
                                 studentCourses.map
-                                (course =>
-                                    <div key={ course.courseId }>
-                                       <p>{ course.courseId }</p>
-                                       <p>{ course.name }</p>
-                                       <p>{ course.description }</p>
-                                       <p>{ course.department }</p>
+                                (( course, index ) =>
+                                    <div key={ `101${ index }` }>
+                                       <Descriptions bordered size="small">
+                                          <Descriptions.Item label="Course Id" span={ 4 }>{ course.courseId }</Descriptions.Item>
+                                          <Descriptions.Item label="Course Name" span={ 2 }>{ course.name }</Descriptions.Item>
+                                          <Descriptions.Item label="Department" span={ 2 }>{ course.department }</Descriptions.Item>
+                                          <Descriptions.Item label="Course Description" span={ 4 }>{ course.description }</Descriptions.Item>
+                                          <Descriptions.Item label="Teacher" span={ 4 }>{ course.teacherName }</Descriptions.Item>
+                                          <Descriptions.Item label="Start Date" span={ 2 }>{ course.startDate }</Descriptions.Item>
+                                          <Descriptions.Item label="End Date" span={ 2 }>{ course.endDate }</Descriptions.Item>
+                                          <Descriptions.Item label="Grade" span={ 4 }>{ course.grade }</Descriptions.Item>
+                                       </Descriptions>
                                        <hr/>
                                     </div>
                                 )
