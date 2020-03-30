@@ -254,7 +254,7 @@ class ComponentMain extends Component {
          ];
 
          return (
-             <Container>
+             <Container className="py-5">
                 <h1 className="text-center">Student Registry</h1>
                 <Table
                     style={ { marginBottom: '100px' } }
