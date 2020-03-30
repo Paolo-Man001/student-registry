@@ -17,7 +17,13 @@ const checkStatus = response => {
 
 // GET: ALL students
 export const getAllStudents = () =>
-    fetch('/api/students').then(checkStatus);
+    fetch('/api/students')
+        .then(checkStatus);
+
+// GET: ALL Student Courses
+export const getAllStudentCourses = studentId =>
+    fetch(`/api/students/${ studentId }/courses`)
+        .then(checkStatus);
 
 // POST: ADD 1 student
 export const addNewStudent = student =>

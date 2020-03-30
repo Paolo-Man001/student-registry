@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { deleteStudent, getAllStudents } from './client';
+import { deleteStudent, getAllStudentCourses, getAllStudents } from './client';
 import { Avatar, Table, Spin, Modal, Empty, Button, Popconfirm, notification } from "antd";
 import { LoadingOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { Container } from "react-bootstrap";
@@ -15,6 +15,7 @@ class ComponentMain extends Component {
       super(props);
       this.state = {
          students: [],
+         studentCourses: [],
          isFetching: false,
          isAddStudentModalVisible: false,
          isStudentCourseModalVisible: false
@@ -33,6 +34,7 @@ class ComponentMain extends Component {
 
    openStudentCourseModal = () => this.setState({ isStudentCourseModalVisible: true });
    closeStudentCourseModal = () => this.setState({ isStudentCourseModalVisible: false });
+
    // NOTIFICATION :
    openNotificationWithIcon = ( type, message, description ) => notification[type]({ message, description });
 
@@ -62,6 +64,44 @@ class ComponentMain extends Component {
           });
    }
 
+   // GET: Student Courses : OnIdClick :
+   handleOnIdClick = ( studentId ) => {
+      // console.log(studentId);
+      this.setState({ isFetching: true });
+
+      getAllStudentCourses(studentId)
+          .then(res => res.json()
+              .then(studentCourses => {
+                 console.log(studentCourses);
+                 if ( !studentCourses.length < 1 ) {
+                    this.setState({
+                       studentCourses,
+                       isFetching: false
+                    });
+                    console.log(`${ studentCourses.length } Course/s for student ID: ${ studentId }`);
+
+                    return;
+                 }
+
+                 this.setState({
+                    isFetching: false
+                 });
+                 console.log(`${ this.state.studentCourses.length } Course/s for student ID: ${ studentId }`);
+              }))
+          .catch(error => {
+             // this is from Promise(checkStatus) returned in client.js :
+             console.log(error.error);
+             const message = error.error.message;
+             const desc = error.error.error;
+             errorNotification(message, desc);
+
+             this.setState({
+                isFetching: false
+             });
+          });
+      this.openStudentCourseModal();
+   };
+
    // DELETE by Id :
    deleteStudent = studentId => {
       // alert(`Deleting Id : ${ studentId }`);
@@ -73,16 +113,12 @@ class ComponentMain extends Component {
       });
    };
 
-   // OnIdClick :
-   handleOnIdClick = ( text ) => {
-      this.openStudentCourseModal();
-   };
-
 
    render() {
 
       const {
          students,
+         studentCourses,
          isFetching,
          isAddStudentModalVisible,
          isStudentCourseModalVisible
@@ -91,6 +127,37 @@ class ComponentMain extends Component {
       const commonElements = () => (
           <>
              <div>
+                {/*---MODAL : DISPLAY STUDENT COURSES ----*/ }
+                <Modal
+                    title={ <h3>Student Course</h3> }
+                    visible={ isStudentCourseModalVisible }
+                    onOk={ this.closeStudentCourseModal }
+                    onCancel={ this.closeStudentCourseModal }
+                    footer={ null }
+                >
+                   {
+                      !studentCourses.length < 1 ?
+                          <>
+                             {
+                                studentCourses.map
+                                (course =>
+                                    <div key={ course.courseId }>
+                                       <p>{ course.courseId }</p>
+                                       <p>{ course.name }</p>
+                                       <p>{ course.description }</p>
+                                       <p>{ course.department }</p>
+                                       <hr/>
+                                    </div>
+                                )
+
+                             }
+                          </>
+                          :
+                          <h5>No courses found</h5>
+                   }
+                </Modal>
+
+                {/*----MODAL : ADD STUDENT ----*/ }
                 <Modal
                     title={ <h4>Add New Student</h4> }
                     visible={ isAddStudentModalVisible }
@@ -114,19 +181,6 @@ class ComponentMain extends Component {
                 </Modal>
                 <ComponentFooter handleAddStudentClick={ this.openAddStudentModal } numberOfStudents={ students.length }/>
              </div>
-             <div>
-                <Modal
-                    title={ <h4>Student Course</h4> }
-                    visible={ isStudentCourseModalVisible }
-                    onOk={ this.closeStudentCourseModal }
-                    onCancel={ this.closeStudentCourseModal }
-                    footer={null}
-                >
-                   <p>Some contents...</p>
-                   <p>Some contents...</p>
-                   <p>Some contents...</p>
-                </Modal>
-             </div>
           </>
       );
 
@@ -138,7 +192,7 @@ class ComponentMain extends Component {
          );
       }
 
-// If True, return a table...
+      // If True, return a table...
       if ( students && students.length ) {
          const columns = [
             {
@@ -219,7 +273,7 @@ class ComponentMain extends Component {
          );
       }
 
-// ... else, return <Empty/> component from ant.design
+      // ... else, return <Empty/> component from ant.design
       return (
           <div>
              <Empty description={
