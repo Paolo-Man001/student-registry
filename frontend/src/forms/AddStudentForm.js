@@ -37,7 +37,7 @@ const AddStudentForm = props => (
            return errors;
         } }
 
-        // Handles the onSubmit
+        // Handles onSubmit :
         onSubmit={ ( student, { setSubmitting, resetForm } ) => {
            student.gender = student.gender.toUpperCase();   // Convert the 'gender' to Uppercase, else Jdbc WILL NOT process the query.
            addNewStudent(student)

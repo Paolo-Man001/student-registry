@@ -5,7 +5,7 @@ import {
    Spin, Modal,
    Empty, Button,
    Popconfirm, notification,
-   Descriptions
+   Descriptions, PageHeader
 } from "antd";
 
 import { LoadingOutlined, QuestionCircleOutlined } from '@ant-design/icons';
@@ -13,6 +13,7 @@ import { Container } from "react-bootstrap";
 import ComponentFooter from "./ComponentFooter";
 import AddStudentForm from "./forms/AddStudentForm";
 import { errorNotification } from "./Notification";
+import EditStudentForm from "./forms/EditStudentForm";
 
 
 const getIndicatorIcon = () => <LoadingOutlined style={ { fontSize: 24 } } spin/>;
@@ -23,6 +24,7 @@ class ComponentMain extends Component {
       this.state = {
          students: [],
          studentCourses: [],
+         selectedStudent: {},
          isFetching: false,
          isAddStudentModalVisible: false,
          isStudentCourseModalVisible: false
@@ -41,6 +43,9 @@ class ComponentMain extends Component {
 
    openStudentCourseModal = () => this.setState({ isStudentCourseModalVisible: true });
    closeStudentCourseModal = () => this.setState({ isStudentCourseModalVisible: false });
+
+   openEditStudentModal = () => this.setState({ isEditStudentModalVisible: true });
+   closeEditStudentModal = () => this.setState({ isEditStudentModalVisible: false });
 
    // NOTIFICATION :
    openNotificationWithIcon = ( type, message, description ) => notification[type]({ message, description });
@@ -100,6 +105,18 @@ class ComponentMain extends Component {
       }).catch(err => {
          this.openNotificationWithIcon('error', 'error', `(${ err.error.status }) ${ err.error.error }`);
       });
+   };
+
+   // EDIT: edit studentRecord
+   editStudent = ( selectedStudent ) => {
+      console.log(selectedStudent);
+      this.setState({ selectedStudent});
+      this.openEditStudentModal()
+   };
+
+   // UPDATE: submit StudentForm
+   updateStudentFormSubmitter = student => {
+      console.log(student);
    };
 
 
@@ -173,6 +190,21 @@ class ComponentMain extends Component {
                        } }
                    />
                 </Modal>
+
+                {/*----MODAL : EDIT STUDENT -----*/}
+                <Modal
+                    title='Edit'
+                    visible={this.state.isEditStudentModalVisible}
+                    onOk={this.closeEditStudentModal}
+                    onCancel={this.closeEditStudentModal}
+                    width={1000}>
+
+                   <PageHeader title={`${this.state.selectedStudent.studentId}`}/>
+
+                   <EditStudentForm
+                       initialValues={this.state.selectedStudent}
+                       submitter={this.updateStudentFormSubmitter}/>
+                </Modal>
                 <ComponentFooter handleAddStudentClick={ this.openAddStudentModal } numberOfStudents={ students.length }/>
              </div>
           </>
@@ -237,7 +269,7 @@ class ComponentMain extends Component {
                key: 'action',
                render: ( text, record ) => (
                    <>
-                      <Button type="primary" style={ { marginRight: 16 } }>Edit</Button>
+                      <Button type="primary" style={ { marginRight: 16 } } onClick={()=>this.editStudent(record)}>Edit</Button>
                       <Popconfirm
                           icon={ <QuestionCircleOutlined style={ { color: 'red' } }/> }
                           placement='topRight'
