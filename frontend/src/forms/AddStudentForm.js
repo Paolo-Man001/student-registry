@@ -12,7 +12,6 @@ const inputMarginY = { margin: '5px 0' };
 const AddStudentForm = props => (
     <Formik
         initialValues={ { firstName: '', lastName: '', email: '', gender: '' } }
-
         validate={ values => {
            const errors = {};
            if ( !values.firstName ) {

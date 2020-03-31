@@ -33,7 +33,7 @@ class EditStudentForm extends Component {
 
               // Handles onSubmit :
               onSubmit={ ( values, { setSubmitting } ) => {
-                 console.log(values);
+                 console.log(values); // values has Selected Student Record
                  submitter(values);
                  setSubmitting(false);
               } }

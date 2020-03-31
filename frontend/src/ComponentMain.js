@@ -33,6 +33,7 @@ class ComponentMain extends Component {
       this.fetchStudents = this.fetchStudents.bind(this);
    }
 
+   // LIFE-CYCLE Methods :
    componentDidMount() {
       this.fetchStudents();
    }
@@ -110,13 +111,13 @@ class ComponentMain extends Component {
    // EDIT: edit studentRecord
    editStudent = ( selectedStudent ) => {
       console.log(selectedStudent);
-      this.setState({ selectedStudent});
+      this.setState({ selectedStudent });
       this.openEditStudentModal()
    };
 
    // UPDATE: submit StudentForm
    updateStudentFormSubmitter = student => {
-      console.log(student);
+      console.log(student);   // 'student' is 'values' from EditStudentForm
    };
 
 
@@ -191,20 +192,22 @@ class ComponentMain extends Component {
                    />
                 </Modal>
 
-                {/*----MODAL : EDIT STUDENT -----*/}
+                {/*----MODAL : EDIT STUDENT -----*/ }
                 <Modal
                     title='Edit'
-                    visible={this.state.isEditStudentModalVisible}
-                    onOk={this.closeEditStudentModal}
-                    onCancel={this.closeEditStudentModal}
-                    width={1000}>
+                    visible={ this.state.isEditStudentModalVisible }
+                    onOk={ this.closeEditStudentModal }
+                    onCancel={ this.closeEditStudentModal }
+                    width={ 1000 }>
 
-                   <PageHeader title={`${this.state.selectedStudent.studentId}`}/>
+                   <PageHeader title={ `${ this.state.selectedStudent.studentId }` }/>
 
                    <EditStudentForm
-                       initialValues={this.state.selectedStudent}
-                       submitter={this.updateStudentFormSubmitter}/>
+                       initialValues={ this.state.selectedStudent }
+                       submitter={ this.updateStudentFormSubmitter }/>
                 </Modal>
+
+                {/* FOOTER */ }
                 <ComponentFooter handleAddStudentClick={ this.openAddStudentModal } numberOfStudents={ students.length }/>
              </div>
           </>
@@ -269,7 +272,12 @@ class ComponentMain extends Component {
                key: 'action',
                render: ( text, record ) => (
                    <>
-                      <Button type="primary" style={ { marginRight: 16 } } onClick={()=>this.editStudent(record)}>Edit</Button>
+                      <Button type="primary" style={ { marginRight: 16 } }
+                              onClick={ () => this.editStudent(record) }
+                      >
+                         Edit
+                      </Button>
+
                       <Popconfirm
                           icon={ <QuestionCircleOutlined style={ { color: 'red' } }/> }
                           placement='topRight'
