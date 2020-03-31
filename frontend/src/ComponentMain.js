@@ -119,7 +119,7 @@ class ComponentMain extends Component {
       this.openEditStudentModal()
    };
 
-   // UPDATE: submit StudentForm
+   // UPDATE: submit (invoked from) EditStudentForm.js
    updateStudentFormSubmitter = student => {
       // console.log(student);   // 'student' is 'values' from EditStudentForm
       updateStudent(student.studentId, student).then(() => {
