@@ -75,6 +75,7 @@ public class StudentDataAccessService {
    }
 
    // VERIFY Email is Taken? : TRUE/FALSE
+   @SuppressWarnings("ConstantConditions")
    boolean isEmailTaken(String email) {
       String sql = "" +
               "SELECT EXISTS (" +
@@ -137,6 +138,54 @@ public class StudentDataAccessService {
               );
    }
 
+
+   //-- UPDATE: email, firstName, lastName :
+      ////--- EMAIL
+   int updateEmail(UUID studentId, String email) {
+      String sql = "" +
+              "UPDATE students " +
+              "SET email = ? " +
+              "WHERE student_id = ?";
+      return jdbcTemplate.update(sql, email, studentId);
+   }
+
+      ////--- FIRST-NAME
+   int updateFirstName(UUID studentId, String firstName) {
+      String sql = "" +
+              "UPDATE students " +
+              "SET first_name = ? " +
+              "WHERE student_id = ?";
+      return jdbcTemplate.update(sql, firstName, studentId);
+   }
+
+      ////--- LAST-NAME
+   int updateLastName(UUID studentId, String lastName) {
+      String sql = "" +
+              "UPDATE students " +
+              "SET last_name = ? " +
+              "WHERE student_id = ?";
+      return jdbcTemplate.update(sql, lastName, studentId);
+   }
+
+   // VERIFY Student's Email Exists : TRUE/FALSE
+   @SuppressWarnings("ConstantConditions")
+   boolean selectExistsEmail(UUID studentId, String email) {
+      String sql = "" +
+              "SELECT EXISTS ( " +
+              "   SELECT 1 " +
+              "   FROM students " +
+              "   WHERE student_id <> ? " +
+              "    AND email = ? " +
+              ")";
+      return jdbcTemplate.queryForObject(
+              sql,
+              new Object[]{studentId, email},
+              (resultSet, columnIndex) -> resultSet.getBoolean(1)
+      );
+   }
+
+
+   // DELETE: Delete a Student
    int deleteStudent(UUID studentId) {
       String sql = "" +
               "DELETE FROM students" +

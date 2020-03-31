@@ -121,7 +121,7 @@ class ComponentMain extends Component {
 
    // UPDATE: submit StudentForm
    updateStudentFormSubmitter = student => {
-      console.log(student);   // 'student' is 'values' from EditStudentForm
+      // console.log(student);   // 'student' is 'values' from EditStudentForm
       updateStudent(student.studentId, student).then(() => {
          this.openNotificationWithIcon('success', 'Student updated', `${ student.studentId } was updated`);
          this.closeEditStudentModal();

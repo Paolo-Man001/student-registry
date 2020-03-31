@@ -36,7 +36,7 @@ export const addNewStudent = student =>
 
     }).then(checkStatus);
 
-// PUT: Edit a Student
+// PUT: Update a Student
 export const updateStudent = (studentId, student) =>
     fetch(`api/students/${studentId}`, {
        headers: {

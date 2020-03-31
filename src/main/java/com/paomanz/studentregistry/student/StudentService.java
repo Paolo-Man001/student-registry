@@ -24,7 +24,7 @@ public class StudentService {
       this.emailValidator = emailValidator;
    }
 
-   // GET:
+   // GET: get ALL Students
    List<Student> getAllStudents() {
       return studentDataAccessService.selectAllStudents();
    }
@@ -55,7 +55,11 @@ public class StudentService {
       studentDataAccessService.insertStudent(newStudentId, student);
    }
 
-   void deleteSTudent(UUID studentId) {
+   // UPDATE: Update a Student
+
+
+   // DELETE: Delete a Student
+   void deletestudent(UUID studentId) {
       studentDataAccessService.deleteStudent(studentId);
    }
 }

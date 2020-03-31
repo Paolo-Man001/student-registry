@@ -45,7 +45,7 @@ public class StudentController {
    @DeleteMapping(path = "{studentId}")
    public void deleteStudent(
            @PathVariable("studentId") UUID studentId) {
-      studentService.deleteSTudent(studentId);
+      studentService.deletestudent(studentId);
    }
 
 } // End of Class StudentController
