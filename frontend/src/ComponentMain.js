@@ -1,5 +1,10 @@
 import React, { Component } from "react";
-import { deleteStudent, getAllStudentCourses, getAllStudents } from './client';
+import {
+   deleteStudent,
+   getAllStudentCourses,
+   getAllStudents,
+   updateStudent
+} from './client';
 import {
    Avatar, Table,
    Spin, Modal,
@@ -7,7 +12,6 @@ import {
    Popconfirm, notification,
    Descriptions, PageHeader
 } from "antd";
-
 import { LoadingOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { Container } from "react-bootstrap";
 import ComponentFooter from "./ComponentFooter";
@@ -118,6 +122,14 @@ class ComponentMain extends Component {
    // UPDATE: submit StudentForm
    updateStudentFormSubmitter = student => {
       console.log(student);   // 'student' is 'values' from EditStudentForm
+      updateStudent(student.studentId, student).then(() => {
+         this.openNotificationWithIcon('success', 'Student updated', `${ student.studentId } was updated`);
+         this.closeEditStudentModal();
+         this.fetchStudents();
+      }).catch(err => {
+         console.error(err.error);
+         this.openNotificationWithIcon('error', 'error', `(${ err.error.status }) ${ err.error.error }`);
+      });
    };
 
 

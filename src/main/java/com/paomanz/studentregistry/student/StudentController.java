@@ -21,6 +21,8 @@ public class StudentController {
       this.studentService = studentService;
    }
 
+
+   // GET: Get ALL Students :
    @GetMapping
    public List<Student> getAllStudents() {
       return studentService.getAllStudents();

@@ -36,6 +36,17 @@ export const addNewStudent = student =>
 
     }).then(checkStatus);
 
+// PUT: Edit a Student
+export const updateStudent = (studentId, student) =>
+    fetch(`api/students/${studentId}`, {
+       headers: {
+          'Content-Type': 'application/json'
+       },
+       method: 'PUT',
+       body: JSON.stringify(student)
+    })
+        .then(checkStatus);
+
 // DELETE: by Id
 export const deleteStudent = studentId =>
     fetch(`api/students/${ studentId }`, {
