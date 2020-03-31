@@ -35,17 +35,24 @@ public class StudentController {
       return studentService.getAllStudentCourses(studentId);
    }
 
-   // ADD: New Student
+   // ADD: New Student :
    @PostMapping      // RequestBody is in JSON format from the frontend(FormData)
    public void addNewStudent(@RequestBody @Valid Student student) {
       studentService.addNewStudent(student);
    }
 
-   // DELETE: Student by Id
+   // PUT: Update Student Record :
+   @PutMapping(path = "{studentId}")
+   public void updateStudent(@PathVariable("studentId") UUID studentId,
+                             @RequestBody Student student) {
+      studentService.updateStudent(studentId, student);
+   }
+
+   // DELETE: Student by Id :
    @DeleteMapping(path = "{studentId}")
    public void deleteStudent(
            @PathVariable("studentId") UUID studentId) {
-      studentService.deletestudent(studentId);
+      studentService.deleteStudent(studentId);
    }
 
 } // End of Class StudentController

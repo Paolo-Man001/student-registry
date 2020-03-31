@@ -81,7 +81,7 @@ public class StudentService {
 
 
    // DELETE: Delete a Student
-   void deletestudent(UUID studentId) {
+   void deleteStudent(UUID studentId) {
       studentDataAccessService.deleteStudent(studentId);
    }
 }
