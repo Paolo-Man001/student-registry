@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Formik } from 'formik';
-import { Input, Button } from 'antd';
-import Text from "antd/es/typography/Text";
+import { Input, Button, Text } from 'antd';
 
 
 const inputMarginY = { margin: '5px 0' };
