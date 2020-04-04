@@ -1,5 +1,6 @@
 import React from "react";
-import { Button, Input, Text } from "antd";
+import Text from "antd/lib/typography/Text";
+import { Button, Input} from "antd";
 import { Formik } from "formik";
 import { addNewStudent } from "../client";
 
