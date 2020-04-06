@@ -10,7 +10,7 @@ import java.util.UUID;
 // Tell SpringBoot this Class will be served as a REST-controller:
 // specify the Mapping with "" - double-quotes
 @RestController
-@RequestMapping("students")
+@RequestMapping("api/students")
 public class StudentController {
 
    // Inject the StudentService into this class:

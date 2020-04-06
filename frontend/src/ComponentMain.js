@@ -114,7 +114,7 @@ class ComponentMain extends Component {
 
    // EDIT: edit studentRecord
    editStudent = ( selectedStudent ) => {
-      console.log(selectedStudent);
+      // console.log(selectedStudent);
       this.setState({ selectedStudent });
       this.openEditStudentModal()
    };
@@ -208,6 +208,7 @@ class ComponentMain extends Component {
                 <Modal
                     title='Edit'
                     visible={ this.state.isEditStudentModalVisible }
+                    destroyOnClose={true}
                     onOk={ this.closeEditStudentModal }
                     onCancel={ this.closeEditStudentModal }
                     width={ 1000 }>
