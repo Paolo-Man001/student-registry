@@ -76,7 +76,7 @@
     <!-- Profiles -->
     <profiles>
         <profile>
-            <id>demo</id>
+            <id>studentregistry</id>
             <build>
                 <plugins>
                     <plugin>
