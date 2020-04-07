@@ -30,5 +30,5 @@ build/
 ### VS Code ###
 .vscode/
 
-## Custom ##
-/src/main/resources/application-studentregistry.yaml
+## User-Custom ##
+/src/main/resources/application-studentregistry
