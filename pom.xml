@@ -151,6 +151,12 @@
                     </plugin>
                 </plugins>
             </build>
+            <!-- Modify Build to select studentregistry Profile -->
+            <properties>
+                <spring.profiles.active>
+                    studentregistry
+                </spring.profiles.active>
+            </properties>
         </profile>
     </profiles>
 
