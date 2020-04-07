@@ -31,4 +31,4 @@ build/
 .vscode/
 
 ## User-Custom ##
-/src/main/resources/application-studentregistry
+/src/main/resources/*.yml
