@@ -1,6 +1,9 @@
-spring:
-  profiles:
-    active: @spring.profiles.active@
+### UNCOMMENT spring.profiles.active for production/deployment build ###
+### COMMENT-OUT spring.profiles.active for development/testing ###
+##--------------------------------------------------------------------##
+#spring:
+#  profiles:
+#    active: @spring.profiles.active@
 
 server:
   port: 8081
