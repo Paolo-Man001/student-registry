@@ -1,7 +1,6 @@
+# Port : 5000 is the port number for AWS Elastic Beanstalk
 server:
-  port: 8081
-#  servlet:
-#    context-path: /api
+  port: 5000
 
 
 logging:
@@ -11,8 +10,9 @@ logging:
 
 app:
   datasource:
-    jdbc-url: jdbc:postgresql://localhost:5433/amigoscodedemo
-    username: postgres
-    password: password
+    # 'localhost' was replaced by the 'Endpoint' of our AWS Database
+    jdbc-url: jdbc:postgresql://fullstackstudentregistrydb.cuukxtoir1hy.us-east-1.rds.amazonaws.com:5433/amigoscodedemo
+    username: paomanspostgresql
+    password: paomanspostgresql
     pool-size: 30     # Allowed number of given connections at any given time.
 
