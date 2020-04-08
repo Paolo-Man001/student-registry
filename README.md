@@ -1,8 +1,8 @@
 # Student Registry
 
-##[Click here](http://springbootfullstackwithreact-env.eba-g6i86tsf.us-east-1.elasticbeanstalk.com/) to play around with 'Student Registry' Application.
+## [Click here](http://springbootfullstackwithreact-env.eba-g6i86tsf.us-east-1.elasticbeanstalk.com/) to play around with 'Student Registry' Application.
 
-##Built With
+## Built With
  **Frontend:**
  > * Reactjs
  > * unfetch
